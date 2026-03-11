@@ -1,0 +1,622 @@
+/* styles.css */
+
+/* Базовые стили и переменные */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    background-color: #F8FAFC;
+    color: #0f172a;
+    scroll-behavior: smooth;
+}
+
+/* Цветовая палитра */
+.bg-deep-blue { background-color: #163A6B; }
+.text-deep-blue { color: #163A6B; }
+.border-deep-blue { border-color: #163A6B; }
+
+/* Статусные цвета */
+.bg-soft-green { background-color: #DCFCE7; }
+.bg-soft-red { background-color: #FEE2E2; }
+
+/* Скругления */
+.radius-card { border-radius: 20px; }
+.radius-button { border-radius: 16px; }
+.radius-logo { border-radius: 12px; }
+
+/* Стеклянные карточки (glassmorphism) */
+.glass-card {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(226, 232, 240, 0.6);
+    transition: all 0.2s ease;
+}
+
+.glass-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 25px 35px -12px rgba(0, 0, 0, 0.15);
+}
+
+/* Hero секция с паттерном */
+.hero-pattern {
+    background-image: linear-gradient(135deg, #163A6B 0%, #0f294d 100%),
+        url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgdmlld0JveD0iMCAwIDQwIDQwIj48cGF0aCBkPSJNMjAgMjBhMTAgMTAgMCAwIDEgMTAgMTAgMTAgMTAgMCAwIDEtMTAgMTAgMTAgMTAgMCAwIDEtMTAtMTAgMTAgMTAgMCAwIDEgMTAtMTB6IiBmaWxsPSIjZmZmIiBmaWxsLW9wYWNpdHk9IjAuMDMiLz48L3N2Zz4=');
+    background-repeat: repeat;
+    background-position: center;
+    background-size: auto, cover;
+    position: relative;
+}
+
+.hero-pattern::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(22, 58, 107, 0.75);
+    pointer-events: none;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+}
+
+/* Анимация появления */
+.reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Hover эффект для кнопок */
+.btn-hover {
+    transition: all 0.2s ease;
+}
+
+.btn-hover:hover {
+    transform: scale(1.03);
+    box-shadow: 0 20px 30px -10px rgba(0, 0, 0, 0.25);
+}
+
+/* Иконки */
+.iconsInfoImg {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+}
+
+.iconsMoreImg {
+    width: 48px;
+    height: 48px;
+    padding-top: 15px;
+    object-fit: contain;
+}
+
+.iconsMoreInformationsImg {
+    height: 38px;
+    object-fit: contain;
+}
+
+/* Адаптивные стили для устройств с hover */
+@media (hover: hover) {
+    .glass-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 25px 35px -12px rgba(0, 0, 0, 0.15);
+    }
+    .btn-hover:hover {
+        transform: scale(1.03);
+        box-shadow: 0 20px 30px -10px rgba(0, 0, 0, 0.25);
+    }
+}
+
+/* Для touch-устройств */
+@media (hover: none) {
+    .glass-card:active {
+        transform: scale(0.98);
+        background: rgba(255, 255, 255, 0.95);
+    }
+    .btn-hover:active {
+        transform: scale(0.97);
+    }
+}
+
+/* Фикс для изображения внутри мокапа */
+.mockup-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+}
+
+/* Адаптивные корректировки */
+@media (max-width: 640px) {
+    .radius-card { border-radius: 16px; }
+    .hero-pattern { background-size: 80px, cover; }
+}
+
+/* Для очень маленьких экранов */
+@media (max-width: 360px) {
+    .text-hero-title { font-size: 2.2rem; }
+}
+
+/* Галерея */
+.gallery-slides {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.gallery-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    pointer-events: none;
+}
+
+.gallery-image.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* Индикаторы (точки) */
+.dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #cbd5e1;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.dot.active {
+    background-color: #163A6B;
+    transform: scale(1.2);
+}
+
+.dot:hover {
+    background-color: #94a3b8;
+}
+
+/* Кнопки навигации */
+.gallery-prev,
+.gallery-next {
+    transition: all 0.2s ease;
+}
+
+.gallery-prev:active,
+.gallery-next:active {
+    transform: scale(0.95);
+}
+
+/* Для мобильных устройств */
+@media (max-width: 640px) {
+    .dot {
+        width: 8px;
+        height: 8px;
+    }
+    
+    .gallery-prev,
+    .gallery-next {
+        padding: 0.5rem;
+    }
+    
+    .gallery-prev svg,
+    .gallery-next svg {
+        width: 1.25rem;
+        height: 1.25rem;
+    }
+}
+
+/* Стили для раскрывающегося контента */
+#detailsContent {
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: opacity 0.5s ease-in-out, max-height 0.5s ease-in-out;
+    visibility: visible;
+}
+
+#detailsContent.visible {
+    opacity: 1;
+    max-height: 5000px;
+}
+
+/* Анимация для стрелки */
+#arrowIcon {
+    transition: transform 0.3s ease;
+}
+
+#arrowIcon.rotated {
+    transform: rotate(180deg);
+}
+
+/* Стили для типографики внутри раскрывающегося блока */
+.prose h3, .prose h4 {
+    margin-top: 1.5em;
+    margin-bottom: 0.75em;
+}
+
+.prose p {
+    margin-bottom: 1.25em;
+    line-height: 1.7;
+}
+
+.prose ul, .prose ol {
+    margin-bottom: 1.25em;
+    padding-left: 1.5em;
+}
+
+.prose li {
+    margin-bottom: 0.5em;
+}
+
+/* Адаптивность для мобильных */
+@media (max-width: 640px) {
+    #detailsContent.visible {
+        max-height: 8000px;
+    }
+    
+    #detailsContent .grid {
+        grid-template-columns: 1fr !important;
+    }
+    
+    #detailsContent .bg-white {
+        padding: 1.25rem !important;
+    }
+    
+    /* Убираем возможные ограничения высоты у внутренних элементов */
+    #detailsContent .bg-white,
+    #detailsContent .prose,
+    #detailsContent .prose > div {
+        overflow: visible;
+        max-height: none;
+    }
+    
+    /* Исправляем отображение карточек на мобильных */
+    #detailsContent .grid.md\:grid-cols-3,
+    #detailsContent .grid.md\:grid-cols-2 {
+        grid-template-columns: 1fr !important;
+        gap: 1rem !important;
+    }
+    
+    /* Улучшение читаемости на мобильных устройствах */
+    .iconsMoreInformationsImg {
+        height: 35px;
+    }
+    
+    #detailsContent p,
+    #detailsContent li,
+    #detailsContent span:not(.bg-deep-blue) {
+        font-size: 14px;
+        line-height: 1.5;
+    }
+    
+    #detailsContent h3 {
+        font-size: 1.5rem !important;
+    }
+    
+    #detailsContent h4 {
+        font-size: 1.25rem !important;
+        margin-bottom: 1rem !important;
+    }
+    
+    #detailsContent h5 {
+        font-size: 1.1rem !important;
+        margin-bottom: 0.5rem !important;
+    }
+    
+    #detailsContent .bg-slate-50 {
+        padding: 1.25rem !important;
+    }
+    
+    #detailsContent .bg-gradient-to-r {
+        padding: 1.25rem !important;
+    }
+    
+    #detailsContent ol {
+        padding-left: 0 !important;
+    }
+    
+    #detailsContent ol li {
+        margin-bottom: 0.75rem !important;
+    }
+    
+    #detailsContent .flex.items-center.gap-3.mb-6 {
+        flex-direction: column !important;
+        text-align: center !important;
+    }
+    
+    #detailsContent .text-2xl span.ml-2 {
+        display: block !important;
+        margin-left: 0 !important;
+        margin-top: 0.5rem !important;
+    }
+}
+
+/* Стили для кнопки Подробнее */
+#detailsButton {
+    transition: all 0.2s ease;
+    border: 2px solid #163A6B;
+    color: #163A6B;
+    background-color: transparent !important;
+}
+
+#detailsButton:hover {
+    background-color: transparent !important;
+    color: #163A6B !important;
+    transform: scale(1.03);
+    box-shadow: 0 20px 30px -10px rgba(22, 58, 107, 0.25);
+}
+
+#detailsButton:hover svg {
+    stroke: #163A6B;
+}
+
+/* Дополнительные стили для родительских элементов */
+#features .flex.flex-col.items-center {
+    overflow: visible !important;
+    width: 100%;
+}
+
+#features .flex.flex-col.items-center > div {
+    overflow: visible !important;
+    width: 100%;
+}
+
+/* Стили для очень маленьких устройств */
+@media (max-width: 380px) {
+    #detailsContent .bg-white {
+        padding: 1rem !important;
+    }
+    
+    .iconsMoreInformationsImg {
+        height: 30px;
+    }
+    
+    #detailsContent p,
+    #detailsContent li,
+    #detailsContent span:not(.bg-deep-blue) {
+        font-size: 13px;
+    }
+    
+    #detailsContent h4 {
+        font-size: 1.1rem !important;
+    }
+    
+    #detailsContent h5 {
+        font-size: 1rem !important;
+    }
+}
+
+/* Стили для градиентного блока с технологическим стеком */
+.bg-gradient-to-r.from-deep-blue.to-blue-800 {
+    background: linear-gradient(135deg, #163A6B 0%, #1e3a8a 100%);
+}
+
+/* Убеждаемся, что все изображения правильно отображаются */
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Стили для списков в карточках */
+#detailsContent .list-disc {
+    padding-left: 1.25rem;
+    margin-top: 0.5rem;
+}
+
+#detailsContent .list-disc li {
+    margin-bottom: 0.25rem;
+    font-size: 0.875rem;
+}
+
+/* Улучшение отображения иконок в карточках */
+#detailsContent .text-3xl.mb-3 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    background-color: rgba(22, 58, 107, 0.1);
+    border-radius: 12px;
+    margin-bottom: 1rem;
+}
+
+/* Стили для заголовков с иконками */
+#detailsContent h4.flex.items-center.gap-2 span:first-child {
+    font-size: 1.5rem;
+}
+
+/* Survey & Download Section Styles */
+
+/* Убираем старые стили для survey и добавляем новые */
+#survey .grid.lg\:grid-cols-2 {
+    gap: 1.5rem;
+}
+
+#survey .bg-deep-blue.radius-card,
+#survey .bg-white.radius-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+#survey .bg-deep-blue.radius-card:hover,
+#survey .bg-white.radius-card:hover {
+    transform: translateY(-5px);
+}
+
+/* Стили для карточки скачивания */
+#survey .download-btn {
+    position: relative;
+    overflow: hidden;
+}
+
+#survey .download-btn::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+}
+
+#survey .download-btn:active::after {
+    width: 300px;
+    height: 300px;
+}
+
+#survey .download-btn svg {
+    transition: transform 0.3s ease;
+}
+
+#survey .download-btn:hover svg {
+    transform: translateY(3px);
+}
+
+/* Стили для инструкций */
+#survey .grid.grid-cols-1.sm\:grid-cols-3 .flex.flex-col {
+    background: white;
+    border: 1px solid rgba(226, 232, 240, 0.6);
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+}
+
+#survey .grid.grid-cols-1.sm\:grid-cols-3 .flex.flex-col:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+    border-color: rgba(22, 58, 107, 0.2);
+}
+
+/* Мобильные стили */
+@media (max-width: 1024px) {
+    #survey .grid.lg\:grid-cols-2 {
+        gap: 1.5rem;
+    }
+}
+
+@media (max-width: 640px) {
+    #survey .bg-deep-blue.radius-card,
+    #survey .bg-white.radius-card {
+        padding: 1.5rem !important;
+    }
+    
+    #survey .grid.grid-cols-1.sm\:grid-cols-3 {
+        gap: 0.75rem;
+    }
+    
+    #survey .flex.flex-col.items-center.p-4 {
+        padding: 1rem;
+    }
+    
+    #survey .text-amber-600.bg-amber-50 {
+        font-size: 0.75rem;
+        padding: 0.75rem 1rem;
+    }
+}
+
+/* Для очень маленьких устройств */
+@media (max-width: 380px) {
+    #survey .w-16.h-16 {
+        width: 48px;
+        height: 48px;
+    }
+    
+    #survey .w-16.h-16 span {
+        font-size: 1.25rem;
+    }
+    
+    #survey .download-btn {
+        padding: 0.75rem 1rem;
+        font-size: 0.875rem;
+    }
+}
+
+/* Hero Description with Logo Styles */
+
+/* Анимация для логотипа */
+#hero-description .w-40.h-40,
+#hero-description .w-48.h-48,
+#hero-description .w-56.h-56 {
+    transition: transform 0.5s ease, box-shadow 0.5s ease;
+}
+
+#hero-description .w-40.h-40:hover,
+#hero-description .w-48.h-48:hover,
+#hero-description .w-56.h-56:hover {
+    box-shadow: 0 25px 50px -12px rgba(22, 58, 107, 0.5);
+}
+
+/* Анимация для статистики */
+#hero-description .grid .text-center {
+    transition: transform 0.3s ease;
+}
+
+#hero-description .grid .text-center:hover {
+    transform: translateY(-3px);
+}
+
+/* Мобильные стили */
+@media (max-width: 640px) {
+    #hero-description .grid.grid-cols-2 {
+        gap: 1rem;
+    }
+    
+    #hero-description .text-2xl {
+        font-size: 1.5rem;
+    }
+    
+    #hero-description .w-40.h-40 {
+        width: 120px;
+        height: 120px;
+    }
+    
+    #hero-description .w-40.h-40 img {
+        width: 80px;
+        height: 80px;
+    }
+}
+
+/* Для очень маленьких устройств */
+@media (max-width: 380px) {
+    #hero-description .w-40.h-40 {
+        width: 100px;
+        height: 100px;
+    }
+    
+    #hero-description .w-40.h-40 img {
+        width: 70px;
+        height: 70px;
+    }
+    
+    #hero-description .grid.grid-cols-2 {
+        gap: 0.75rem;
+    }
+    
+    #hero-description .text-2xl {
+        font-size: 1.25rem;
+    }
+    
+    #hero-description .text-xs {
+        font-size: 0.7rem;
+    }
+}
+
